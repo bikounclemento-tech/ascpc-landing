@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileDrawer = document.getElementById('mobile-drawer');
 
   const handleScroll = () => {
+    if (!siteHeader) return;
     if (window.scrollY > 24) {
       siteHeader.classList.add('is-scrolled');
     } else {
@@ -121,28 +122,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const domainMeta = {
     stock: {
       name: 'Gestion des Stocks & Immobilisation',
-      deliverable: 'Calibrage ABC/XYZ, réduction des stocks dormants & ruptures',
-      checkboxVal: 'Gestion des Stocks & Entrepôts'
+      deliverable: 'Calibrage ABC/XYZ, réduction des stocks dormants & ruptures'
     },
     transport: {
       name: 'Transport, Flotte & Distribution',
-      deliverable: 'Optimisation du coût au km, schémas de tournées & contrats transporteurs',
-      checkboxVal: 'Transport & Distribution'
+      deliverable: 'Optimisation du coût au km, schémas de tournées & contrats transporteurs'
     },
     customs: {
       name: 'Transit, Douane & Opérations Portuaires',
-      deliverable: 'Réduction des surestaries, fluidité documentaire & conformité CEMAC',
-      checkboxVal: 'Transit, Douane & Opérations Portuaires'
+      deliverable: 'Réduction des surestaries, fluidité documentaire & conformité CEMAC'
     },
     warehouse: {
       name: 'Entreposage & Manutention Lean',
-      deliverable: 'Réimplantation (slotting), 5S, productivité & fiabilité d’inventaire',
-      checkboxVal: 'Gestion des Stocks & Entrepôts'
+      deliverable: 'Réimplantation (slotting), 5S, productivité & fiabilité d’inventaire'
     },
     kpi: {
       name: 'Modélisation Décisionnelle & Tableaux de Bord',
-      deliverable: 'Cockpit KPI exécutif (OTIF, TCO, rotation) & rituel S&OP',
-      checkboxVal: 'Modélisation & Tableaux de bord KPI'
+      deliverable: 'Cockpit KPI exécutif (OTIF, TCO, rotation) & rituel S&OP'
     }
   };
 
@@ -163,12 +159,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    const sum = vals.stock + vals.transport + vals.customs + vals.warehouse + vals.kpi; // 5 to 25
+    const sum = vals.stock + vals.transport + vals.customs + vals.warehouse + vals.kpi;
     const score100 = Math.round((sum / 25) * 100);
 
     if (scoreEl) scoreEl.textContent = String(score100);
 
-    // Find lowest scoring domain(s)
     const sortedDomains = Object.entries(vals).sort((a, b) => a[1] - b[1]);
     const weakestKey = sortedDomains[0][0];
     const secondWeakestKey = sortedDomains[1][0];
@@ -215,47 +210,72 @@ document.addEventListener('DOMContentLoaded', () => {
   updateSimulator();
 
   /* ==========================================================================
-     4. INTERACTIVE 20-DAY EXPERT PROGRAM CURRICULUM EXPLORER (B2C)
+     4. INTERACTIVE 5-MODULE CURRICULUM EXPLORER (2 MOIS / 8 SEMAINES • 3 SÉANCES/SEM.)
      ========================================================================== */
   const curriculumData = {
     '1': {
-      tag: 'BLOC 01 • JOURS 01 À 05 (5 JOURS)',
-      title: "Architecture Supply Chain, Planification S&OP & Stratégie d'Approvisionnement",
-      desc: "Maîtriser la chaîne de valeur globale, structurer le processus Sales & Operations Planning (PIC/PDP), sécuriser le sourcing international et optimiser les contrats fournisseurs.",
+      tag: 'MODULE 1 (M1) • RÉFÉRENTIEL ZONE CEMAC / UEMOA',
+      title: 'Gouvernance & Pilotage Opérationnel de la Supply Chain',
+      desc: "Synchronisation des flux physiques, d'information et financiers (P2P, O2C, SCOR), gestion avancée des stocks, Lean Warehousing (5S) et économie du transport en Afrique.",
+      pdf: 'assets/programmes/ASCPC-Module-1-Gouvernance-Pilotage-Supply-Chain.pdf',
+      pdfLabel: 'Télécharger le PDF du Module 1',
       items: [
-        "Construction complète d'un plan directeur S&OP et modèle de prévision de la demande",
-        "Matrice d'évaluation fournisseurs, calcul du TCO d'achat et négociation logistique",
-        "Étude de cas réel : fiabilisation des approvisionnements industriels en zone CEMAC"
+        '<strong>01–02 :</strong> Architecture Métier & Flux (P2P, O2C, SCOR) & Gestion Avancée des Stocks (Pareto ABC/XYZ)',
+        "<strong>03–04 :</strong> Modèles EOQ & Calculateur (Formule de Wilson, aléa portuaire/douanier) & Excellence en Entrepôt (5S)",
+        "<strong>05–06 :</strong> Matrice Analytique des KPI (grilles d'alerte rouge) & Économie du Transport / TCO en Afrique",
+        "<strong>07–08 :</strong> Grille d'Audit ASCPC en 10 points clés & Études de Cas réels (Douala, Abidjan)"
       ]
     },
     '2': {
-      tag: 'BLOC 02 • JOURS 06 À 10 (5 JOURS)',
-      title: "Ingénierie des Stocks, Gestion des Entrepôts (WMS) & Lean Logistics",
-      desc: "Optimiser le fonds de roulement par une gestion scientifique des stocks et transformer la productivité des entrepôts grâce aux outils Lean Logistics.",
+      tag: 'MODULE 2 (M2) • ACHETER & DÉDOUANER POUR GAGNER (CEMAC / CEDEAO)',
+      title: 'Achats Stratégiques, Transit & Douane, Incoterms 2020 & Assurances',
+      desc: "Maîtriser le Coût Total de Détention (TCO), le passage FOB à CIF, la correspondance des régimes douaniers (IM4, IM5, IM8, DAU, BESC/CTN) et les assurances maritimes ICC.",
+      pdf: 'assets/programmes/ASCPC-Module-2-Achats-Strategiques-Transit-Douane-Incoterms.pdf',
+      pdfLabel: 'Télécharger le PDF du Module 2',
       items: [
-        "Paramétrage des stocks de sécurité, point de commande et segmentation ABC/XYZ sous Excel",
-        "Audit d'entrepôt : adressage (slotting), réduction des déplacements, 5S et fiabilité d'inventaire",
-        "Simulation terrain : élimination des 8 gaspillages logistiques (Muda) et réduction des coûts de stockage"
+        '<strong>01–02 :</strong> Achats Stratégiques & TCO + Incoterms 2020, transfert de risque & valeur en douane',
+        '<strong>03–04 :</strong> Calculateur TCO & Douane (FOB à CIF) + Régimes IM4/IM5/IM8, DAU, BESC/CTN & Corridors',
+        "<strong>05–06 :</strong> Assurances Maritimes ICC (Clauses A, B, C) & Tableaux de bord Achats/Transit (OTIF, Surestaries)",
+        "<strong>07–08 :</strong> Grille d'Audit Achats/Transit (10 axes) & Cas Pratiques Corrigés (Douala, Abidjan, Libreville, Dakar, Pointe-Noire)"
       ]
     },
     '3': {
-      tag: 'BLOC 03 • JOURS 11 À 15 (5 JOURS)',
-      title: "Gestion des Transports, Opérations Portuaires, Transit & Douane",
-      desc: "Maîtriser les opérations d'import/export, les Incoterms 2020, le dédouanement en Afrique centrale et de l'Ouest, et la rentabilité des flottes de transport.",
+      tag: 'MODULE 3 (M3) • CONSTRUCTION BUDGÉTAIRE, RENTABILITÉ & SÉCURISATION',
+      title: 'Piloter la Performance par les Chiffres : Budget, Finance & Contrôle Interne Logistique',
+      desc: "Construire le budget logistique de A à Z (OPEX/CAPEX, ABB), arbitrer entre flotte interne et 3PL, optimiser le BFR et verrouiller le contrôle interne contre la fraude.",
+      pdf: 'assets/programmes/ASCPC-Module-3-Budget-Finance-Controle-Interne-Logistique.pdf',
+      pdfLabel: 'Télécharger le PDF du Module 3',
       items: [
-        "Dossiers pratiques de transit et dédouanement : maîtrise des délais portuaires et élimination des surestaries",
-        "Dimensionnement de flotte, calcul du coût de revient kilométrique et gestion de la sous-traitance transport",
-        "Sécurisation des corridors régionaux (Douala–N'Djamena, Douala–Bangui, corridors ouest-africains)"
+        '<strong>01–02 :</strong> Construction du Budget Logistique (ABB, OPEX vs CAPEX) & Simulateur Budget Flotte / Point Mort 3PL',
+        "<strong>03–04 :</strong> Finance & Rentabilité (PRL, DSI, BFR) & Contrôle Interne (matrice 3-Way Match, lutte fraude carburant)",
+        "<strong>05–06 :</strong> Analyse des Écarts Financiers (Volume, Prix, Efficience) & Tableaux de Bord / KPIs Directeurs",
+        "<strong>07–08 :</strong> Grille d'Audit Interne & Finance (10 axes) + Cas Corrigés A-Z (Gabon, RCI, Sénégal, Cameroun/RCA, Mali, Congo, Tchad)"
       ]
     },
     '4': {
-      tag: 'BLOC 04 • JOURS 16 À 20 (5 JOURS)',
-      title: "Audit SCOR, Modélisation Décisionnelle, Tableaux de Bord & Soutenance",
-      desc: "Concevoir des tableaux de bord exécutifs, conduire un diagnostic SCOR de bout en bout et présenter un plan de transformation chiffré devant le jury ASCPC.",
+      tag: 'MODULE 4 (M4) • RÉSEAUX LOGISTIQUES, MULTIMODAL & DOUANES',
+      title: 'Optimisation des Réseaux Logistiques, Transport Multimodal & Conformité Douanière',
+      desc: "Concevoir un réseau d'entrepôts optimal (méthode du centre de gravité), piloter le transport multimodal (Route-Fer-Fleuve-Air) et sécuriser les procédures SYDONIA.",
+      pdf: 'assets/programmes/ASCPC-Module-4-Reseaux-Logistiques-Transport-Multimodal-Douane.pdf',
+      pdfLabel: 'Télécharger le PDF du Module 4',
       items: [
-        "Création d'un cockpit de pilotage Supply Chain (OTIF, Taux de service, Rotation, Coût logistique / CA)",
-        "Méthodologie complète d'audit SCOR (Plan, Source, Make, Deliver, Return, Enable)",
-        "Projet final d'application professionnelle + lancement du Coaching Individuel Post-Formation"
+        "<strong>01–02 :</strong> Conception de Réseau Logistique & Simulateur du Centre de Gravité / Coûts Corridors",
+        "<strong>03–04 :</strong> Transport Multimodal en Afrique (Douala-Bangui/N'Djamena, Abidjan-Bamako) & Douanes SYDONIA",
+        "<strong>05–06 :</strong> Analyse Mathématique des Écarts Transport & Tableaux de Bord Réseau (OTIF, Lead Time, Remplissage)",
+        "<strong>07–08 :</strong> Grille d'Audit Réseau & Douanes + Cas Réels Corridors Transfrontaliers (Douala, Abidjan, Dakar, Pointe-Noire, Cotonou)"
+      ]
+    },
+    '5': {
+      tag: 'MODULE IV AVANCÉ • RÉFÉRENTIEL SCM EXPERT (AFRIQUE CENTRALE & OUEST)',
+      title: 'Audit Logistique Complet, Planification, Exécution & Transition Écologique',
+      desc: "Maîtriser l'investigation d'audit (SIPOC, Diagramme Spaghetti, traque du coulage), rédiger un Rapport d'Audit DG avec plan cash 30/60/90j, déployer S&OP/MRP et l'écologistique.",
+      pdf: 'assets/programmes/ASCPC-Module-5-Audit-Logistique-Complet-Planification-Transition-Ecologique.pdf',
+      pdfLabel: 'Télécharger le PDF du Module Avancé (Audit & ESG)',
+      items: [
+        "<strong>01–03 :</strong> Cadre d'Audit SIPOC, Audit Entrepôt (Diagramme Spaghetti Douala) & Audit Stocks (BFR 200M FCFA Abidjan)",
+        "<strong>04–05 :</strong> Audit Flotte (Dakar-Bamako) & Rapport d'Audit Directeur Général (-103M FCFA & plan cash 30/60/90 jours)",
+        '<strong>06–07 :</strong> Planification Stratégique (PIC/S&OP, PDP/MPS, CBN/MRP, DRP, VMI) & Exécution WMS/TMS/Kanban',
+        "<strong>08–09 :</strong> Diagnostic VSM & Projets ERP (Bamako) + Écologistique, Empreinte CO₂, Reverse Logistics (N'Djamena) & ESG"
       ]
     }
   };
@@ -265,6 +285,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const modTitle = document.getElementById('mod-title');
   const modDesc = document.getElementById('mod-desc');
   const modList = document.getElementById('mod-list');
+  const modPdfLink = document.getElementById('mod-pdf-link');
+  const modPdfLabel = document.getElementById('mod-pdf-label');
 
   curriculumTabs.forEach((tab) => {
     tab.addEventListener('click', () => {
@@ -285,11 +307,120 @@ document.addEventListener('DOMContentLoaded', () => {
       if (modList) {
         modList.innerHTML = data.items.map((item) => `<li>${item}</li>`).join('');
       }
+      if (modPdfLink) {
+        modPdfLink.setAttribute('href', data.pdf);
+      }
+      if (modPdfLabel) {
+        modPdfLabel.textContent = data.pdfLabel;
+      }
     });
   });
 
+  // Pack Download of all 5 PDFs
+  const downloadAllPdfsBtn = document.getElementById('download-all-pdfs-btn');
+  if (downloadAllPdfsBtn) {
+    downloadAllPdfsBtn.addEventListener('click', () => {
+      const pdfFiles = [
+        'assets/programmes/ASCPC-Module-1-Gouvernance-Pilotage-Supply-Chain.pdf',
+        'assets/programmes/ASCPC-Module-2-Achats-Strategiques-Transit-Douane-Incoterms.pdf',
+        'assets/programmes/ASCPC-Module-3-Budget-Finance-Controle-Interne-Logistique.pdf',
+        'assets/programmes/ASCPC-Module-4-Reseaux-Logistiques-Transport-Multimodal-Douane.pdf',
+        'assets/programmes/ASCPC-Module-5-Audit-Logistique-Complet-Planification-Transition-Ecologique.pdf'
+      ];
+      pdfFiles.forEach((fileUrl, idx) => {
+        setTimeout(() => {
+          const link = document.createElement('a');
+          link.href = fileUrl;
+          link.download = fileUrl.split('/').pop() || `ASCPC-Module-${idx + 1}.pdf`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }, idx * 350);
+      });
+    });
+  }
+
   /* ==========================================================================
-     5. DUAL CONVERSION TRACK SWITCHER (B2B vs B2C)
+     5. INTERACTIVE TEAM CAROUSEL (SLIDING BLOCK)
+     ========================================================================== */
+  const teamViewport = document.getElementById('team-carousel-viewport');
+  const teamPrevBtn = document.getElementById('team-prev-btn');
+  const teamNextBtn = document.getElementById('team-next-btn');
+  const teamDots = document.querySelectorAll('.team-dot');
+
+  if (teamViewport) {
+    const getScrollStep = () => {
+      const card = teamViewport.querySelector('.team-card');
+      return card ? card.offsetWidth + 24 : 360;
+    };
+
+    if (teamPrevBtn) {
+      teamPrevBtn.addEventListener('click', () => {
+        teamViewport.scrollBy({ left: -getScrollStep(), behavior: 'smooth' });
+      });
+    }
+
+    if (teamNextBtn) {
+      teamNextBtn.addEventListener('click', () => {
+        teamViewport.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
+      });
+    }
+
+    teamDots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const idx = parseInt(dot.getAttribute('data-slide') || '0', 10);
+        teamViewport.scrollTo({ left: idx * getScrollStep(), behavior: 'smooth' });
+      });
+    });
+
+    teamViewport.addEventListener(
+      'scroll',
+      () => {
+        const maxScroll = teamViewport.scrollWidth - teamViewport.clientWidth;
+        if (maxScroll <= 0) return;
+        const progress = teamViewport.scrollLeft / maxScroll;
+        const activeDotIndex = Math.min(
+          teamDots.length - 1,
+          Math.round(progress * (teamDots.length - 1))
+        );
+        teamDots.forEach((d, idx) => {
+          d.classList.toggle('is-active', idx === activeDotIndex);
+        });
+      },
+      { passive: true }
+    );
+
+    // Mouse Drag-to-Scroll Support
+    let isDown = false;
+    let startX = 0;
+    let scrollLeftStart = 0;
+
+    teamViewport.addEventListener('mousedown', (e) => {
+      isDown = true;
+      teamViewport.classList.add('is-dragging');
+      startX = e.pageX - teamViewport.offsetLeft;
+      scrollLeftStart = teamViewport.scrollLeft;
+    });
+
+    const stopDragging = () => {
+      isDown = false;
+      teamViewport.classList.remove('is-dragging');
+    };
+
+    teamViewport.addEventListener('mouseleave', stopDragging);
+    teamViewport.addEventListener('mouseup', stopDragging);
+
+    teamViewport.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - teamViewport.offsetLeft;
+      const walk = (x - startX) * 1.4;
+      teamViewport.scrollLeft = scrollLeftStart - walk;
+    });
+  }
+
+  /* ==========================================================================
+     6. DUAL CONVERSION TRACK SWITCHER (B2B vs B2C)
      ========================================================================== */
   const tabBtnB2B = document.getElementById('tab-btn-b2b');
   const tabBtnB2C = document.getElementById('tab-btn-b2c');
@@ -328,7 +459,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (tabBtnB2B) tabBtnB2B.addEventListener('click', () => switchConversionTrack('b2b'));
   if (tabBtnB2C) tabBtnB2C.addEventListener('click', () => switchConversionTrack('b2c'));
 
-  // Any link/button with [data-switch-track] switches to the right form
   document.querySelectorAll('[data-switch-track]').forEach((trigger) => {
     trigger.addEventListener('click', () => {
       const targetTrack = trigger.getAttribute('data-switch-track');
@@ -338,7 +468,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Transfer Simulator Diagnostic into B2B Form
   if (transferBtn) {
     transferBtn.addEventListener('click', () => {
       switchConversionTrack('b2b');
@@ -362,7 +491,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     6. FORM SUBMISSIONS (B2B & B2C) + EXECUTIVE SUMMARY & MEMORANDUM
+     7. FORM SUBMISSIONS (B2B & B2C) + EXECUTIVE SUMMARY & MEMORANDUM
      ========================================================================== */
   const formB2B = document.getElementById('form-b2b');
   const formB2C = document.getElementById('form-b2c');
@@ -387,7 +516,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (confSummary) confSummary.textContent = bodyText;
 
     if (confMailtoBtn) {
-      const mailtoUrl = `mailto:contact@ascpc-consulting.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+      const mailtoUrl = `mailto:africasupplychainperformanceco@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
       confMailtoBtn.setAttribute('href', mailtoUrl);
     }
 
@@ -493,7 +622,7 @@ document.addEventListener('DOMContentLoaded', () => {
           confCopyBtn.textContent = originalText;
         }, 2500);
       } catch {
-        // Fallback selection
+        // Fallback
       }
     });
   }
@@ -505,7 +634,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     7. DOWNLOADABLE EXECUTIVE MEMORANDUM (.TXT)
+     8. DOWNLOADABLE EXECUTIVE MEMORANDUM (.TXT)
      ========================================================================== */
   const downloadMemoBtn = document.getElementById('download-memo-btn');
   if (downloadMemoBtn) {
@@ -564,7 +693,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     8. SCROLL REVEAL OBSERVER & DYNAMIC YEAR
+     9. SCROLL REVEAL OBSERVER & DYNAMIC YEAR
      ========================================================================== */
   const revealElements = document.querySelectorAll('[data-reveal]');
   if ('IntersectionObserver' in window) {
@@ -577,7 +706,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.1 }
     );
     revealElements.forEach((el) => observer.observe(el));
   } else {
@@ -589,4 +718,3 @@ document.addEventListener('DOMContentLoaded', () => {
     yearEl.textContent = String(new Date().getFullYear());
   }
 });
-
